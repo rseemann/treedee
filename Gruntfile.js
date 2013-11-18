@@ -1,14 +1,18 @@
 module.exports = function(grunt) {
   grunt.initConfig({
-    exec: {
+    nodestatic: {
       server: {
-        command : "python3 -m http.server"
+        options: {
+          port: 8081,
+          keepalive: true,
+          base: '.'
+        }
       }
     }
 
   });
 
-  grunt.loadNpmTasks('grunt-exec');
+  grunt.loadNpmTasks('grunt-nodestatic');
 
-  grunt.registerTask('dev', ['exec:server']);
-}
+  grunt.registerTask('dev', ['nodestatic:server']);
+};

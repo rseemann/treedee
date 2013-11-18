@@ -1,22 +1,11 @@
-<body onload="webGLStart();">
-  <a href="http://learningwebgl.com/blog/?p=28">&lt;&lt; Back to Lesson 1</a><br />
+<html>
+<head>
+  <title>Sample Three.js Page</title>
 
-  <canvas id="lesson01-canvas" style="border: none;" width="500" height="500"></canvas>
-
-  <br/>
-  <a href="http://learningwebgl.com/blog/?p=28">&lt;&lt; Back to Lesson 1</a><br />
-
-  <script>
-    function webGLStart() {
-    var canvas = document.getElementById("lesson01-canvas");
-    initGL(canvas);
-    initShaders();
-    initBuffers();
-
-    gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.enable(gl.DEPTH_TEST);
-
-    drawScene();
-  }
-  </script>
+  <script src="vendor/js/three.js"></script>
+  <script src="src/main.js"></script>
+</head>
+<body onLoad="start()">
+  <div id="container" style="width:500px; height:500px; background-color:#000000"></div>
 </body>
+</html>
