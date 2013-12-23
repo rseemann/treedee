@@ -1,15 +1,12 @@
 <html>
 <head>
-  <title>Sample Three.js Page</title>
-
-  <script src="vendor/js/jquery.js"></script>
-  <script src="vendor/js/underscore.js"></script>
-  <script src="vendor/js/three.js"></script>
-  <script src="vendor/js/sim.js"></script>
-  <script src="src/sun.js"></script>
+  <title>TreeDee Index</title>
 </head>
-<body onLoad="start()">
-  <div id="container" style="width:500px; height:500px; background-color:#000000"></div>
+<body>
+  <div id="container" style="width:1024px; height:768px; background-color:#000000"></div>
+  <script data-main="src/boot" src="vendor/js/require.js" type="text/javascript"></script>
+  <script src="vendor/js/require-config.js" type="text/javascript"></script>
+
   <script id="fragmentShader" type="x-shader/x-fragment">
     uniform float time;
 
@@ -19,6 +16,7 @@
     varying vec2 texCoord;
 
     void main( void ) {
+
       vec4 noise = texture2D( texture1, texCoord );
 
       vec2 T1 = texCoord + vec2( 1.5, -1.5 ) * time  * 0.01;
@@ -35,8 +33,11 @@
       vec4 temp = color * 2.0 * ( vec4( p, p, p, p ) ) + ( color * color );
       gl_FragColor = temp;
     }
+
   </script>
+
   <script id="vertexShader" type="x-shader/x-vertex">
+
     varying vec2 texCoord;
 
     void main()
