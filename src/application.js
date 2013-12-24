@@ -1,9 +1,8 @@
 define([
   'underscore',
-  'three',
   'sim',
-  'sun'
-], function (_, Three, Sim, Sun) {
+  'main_controller',
+], function (_, Sim, MainController) {
   var instance = null;
 
   function App () {
@@ -13,10 +12,7 @@ define([
   App.prototype = _.extend(new Sim.App(), {
     init: function (args) {
       Sim.App.prototype.init.call(this, args);
-
-      var sun = new Sun();
-      sun.init();
-      this.addObject(sun);
+      this.mainController = new MainController(this);
     }
   });
 
