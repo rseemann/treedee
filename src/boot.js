@@ -6,22 +6,15 @@ define([
     var container = $("#container");
 
     var sceneSetup = new SceneSetup(container);
+    var scene = sceneSetup.scene;
 
-    var radius = 50,
-      segments = 16,
-      rings = 16;
-
-    var sphereMaterial = new THREE.MeshLambertMaterial({
-      color: 0xCC0000
-    });
-
-    var sphere = new THREE.Mesh(
-      new THREE.SphereGeometry(radius, segments, rings),
-      sphereMaterial
-    );
-
-    sceneSetup.scene.add(sphere);
+    addTrunk(scene);
 
     sceneSetup.render();
 
+    function addTrunk (scene) {
+      scene.add(new TrunkMesh());
+      scene.add(new TrunkMesh(50, 50, -100));
+      scene.add(new TrunkMesh(-100, 50, 100));
+    }
 });
