@@ -1,24 +1,14 @@
 {
-  "name": "treedee",
+  "name": "three_tut",
   "version": "0.0.0",
-  "description": "treedee =======",
-  "main": "Gruntfile.js",
-  "devDependencies": {
-    "grunt": "0.4.x",
-    "grunt-exec": "~0.4.0",
-    "grunt-contrib-jshint": "~0.4.3",
-    "grunt-contrib-nodeunit": "~0.2.0",
-    "grunt-contrib-uglify": "~0.2.2",
-    "grunt-nodestatic": "~0.1.2"
-  },
+  "description": "",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/rseemann/treedee.git"
-  },
-  "license": "BSD",
-  "readmeFilename": "README.md",
-  "gitHead": "543059cb73203488b159cb716a23278fb98d79ef"
+  "author": "Rafael Seemann",
+  "license": "ISC",
+  "devDependencies": {
+    "grunt": "^0.4.4",
+  }
 }

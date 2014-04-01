@@ -1,18 +1,17 @@
 module.exports = function(grunt) {
-  grunt.initConfig({
-    nodestatic: {
+   grunt.initConfig({
+    connect: {
       server: {
         options: {
-          port: 8081,
+          port: 8080,
           keepalive: true,
           base: '.'
         }
       }
     }
+   });
 
-  });
+  grunt.loadNpmTasks('grunt-contrib-connect');
 
-  grunt.loadNpmTasks('grunt-nodestatic');
-
-  grunt.registerTask('dev', ['nodestatic:server']);
+  grunt.registerTask('default', ['connect']);
 };

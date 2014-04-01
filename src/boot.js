@@ -1,11 +1,10 @@
 define([
   'jquery',
-  'application'
-], function ($, Application) {
-  $(document).ready(function(){
-    var container = document.getElementById("container");
+  'sceneSetup',
+  'trunkMesh'
+  ], function ($, SceneSetup, TrunkMesh) {
+    var container = $("#container");
 
-    Application.init({ container: container });
-    Application.run();
-  });
+    var sceneSetup = new SceneSetup(container);
+    sceneSetup.render();
 });
