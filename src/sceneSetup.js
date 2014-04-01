@@ -9,6 +9,7 @@ define([
       };
 
       setup.call(this, $container);
+      addLight.call(this);
     };
 
     function setup($container){
@@ -27,7 +28,7 @@ define([
       scene.add(camera);
       
       camera.position.y = 1;
-      camera.position.z = 20;
+      camera.position.z = 300;
 
       renderer.setSize(WIDTH, HEIGHT);
 
@@ -36,6 +37,16 @@ define([
       this.scene = scene;
       this.camera = camera;
       this.renderer = renderer;
+    }
+
+    function addLight() {
+      var light = new THREE.PointLight(0xFFFFFF);
+
+      light.position.x = 10;
+      light.position.y = 50;
+      light.position.z = 130;
+
+      this.scene.add(light);
     }
 
     return SceneSetup;
