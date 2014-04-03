@@ -13,9 +13,9 @@ define([
     };
 
     function setup($container){
-      var WIDTH = 800,
-        HEIGHT = 600;
-      
+      var WIDTH = $container.width(),
+        HEIGHT = $container.height();
+
       var VIEW_ANGLE = 45,
         ASPECT = WIDTH/HEIGHT,
         NEAR = 0.1,
@@ -41,7 +41,7 @@ define([
     }
 
     function addLight() {
-      var light = new THREE.PointLight(0xFFFFFF);
+      var light = new THREE.PointLight(0xffffff);
 
       light.position.x = 10;
       light.position.y = 50;

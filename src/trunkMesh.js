@@ -1,8 +1,8 @@
 define([
   'Three'
   ], function (Three) {
-    var radius = 100,
-      height = 1000,
+    var radius = 10,
+      height = 50,
       radiusSegments = 32,
       heightSegments = 1;
 
@@ -14,8 +14,10 @@ define([
       z = z || 0;
 
       var material = new Three.MeshPhongMaterial({
-        map: Three.ImageUtils.loadTexture('assets/Bark_0003_diffuse.jpg'),
-        normalMap: Three.ImageUtils.loadTexture('assets/Bark_0003_normal.jpg')
+        map: Three.ImageUtils.loadTexture('assets/Bark_0007_diffuse.jpg'),
+        normalMap: Three.ImageUtils.loadTexture('assets/Bark_0007_normal.jpg'),
+        normalScale: new Three.Vector2(0.2, 0.2),
+        shininess: 50
       });
 
       var geometry = new Three.CylinderGeometry(radius, radius, height, radiusSegments, heightSegments);
@@ -26,7 +28,7 @@ define([
       mesh.position.z = z;
 
       mesh.update = function (delta) {
-        this.rotation.y += velocity * delta;
+        //this.rotation.y += velocity * delta;
       };
 
 

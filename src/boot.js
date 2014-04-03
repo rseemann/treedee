@@ -10,8 +10,6 @@ define([
 
     var application = new Application(container);
 
-    document.addEventListener('mousemove', application.onMouseMove, false);
-
     function modifyThree () {
       Three.Object3D.prototype.addUpdatable = function (child) {
         if(!this.animatableChildren){
@@ -34,9 +32,6 @@ define([
       };
     }
 
-
-
     function addAnimatableChild (child) {
-
     }
 });

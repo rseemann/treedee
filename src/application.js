@@ -3,42 +3,33 @@ define([
   'underscore',
   'sceneSetup',
   'Stats',
-  'trunkMesh'
-  ], function (Three, _, SceneSetup, Stats, TrunkMesh) {
+  'stageStarter',
+  ], function (Three, _, SceneSetup, Stats, StageStarter) {
     var clock = new Three.Clock(true);
 
     var Application = function ($container) {
-      this.onMouseMove = _.bind(onMouseMove, this);
-
       var sceneSetup = new SceneSetup($container);
       var scene = sceneSetup.scene;
 
       var stats = addStats($container);
 
+      var stageStarter = new StageStarter(scene, sceneSetup.camera);
+
       var renderFunction = _.bind(sceneSetup.render, sceneSetup);
-      update.call(this, _.bind(announceObjectsAndUpdate, this, renderFunction, scene, stats));
+      update.call(this, _.bind(announceObjectsAndUpdate, this, renderFunction, scene, stats, stageStarter));
     };
-
-    function onMouseMove (event) {
-      var x = event.clientX / window.innerWidth;
-      var y = event.clientY / window.innerHeight;
-      console.log(x, y);
-    }
-
-    function addTrunks (scene) {
-      scene.addUpdatable(new TrunkMesh());
-      scene.addUpdatable(new TrunkMesh(50, 50, -100));
-      scene.addUpdatable(new TrunkMesh(-100, 50, 100));
-    }
 
     function update (updateFunction) {
       requestAnimationFrame(_.bind(update, this, updateFunction));
       updateFunction();
     }
 
-    function announceObjectsAndUpdate (renderFunction, scene, stats) {
+    function announceObjectsAndUpdate (renderFunction, scene, stats, stageStarter) {
+      var delta = clock.getDelta();
+
       stats.update();
-      scene.updateAll(clock.getDelta());
+      stageStarter.update(delta);
+      scene.updateAll(delta);
       renderFunction();
     }
 
