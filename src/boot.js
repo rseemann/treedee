@@ -1,20 +1,42 @@
 define([
   'jquery',
-  'sceneSetup',
-  'trunkMesh'
-  ], function ($, SceneSetup, TrunkMesh) {
+  'underscore',
+  'Three',
+  'application'
+  ], function ($, _, Three, Application) {
     var container = $("#container");
 
-    var sceneSetup = new SceneSetup(container);
-    var scene = sceneSetup.scene;
+    modifyThree();
 
-    addTrunk(scene);
+    var application = new Application(container);
 
-    sceneSetup.render();
+    document.addEventListener('mousemove', application.onMouseMove, false);
 
-    function addTrunk (scene) {
-      scene.add(new TrunkMesh());
-      scene.add(new TrunkMesh(50, 50, -100));
-      scene.add(new TrunkMesh(-100, 50, 100));
+    function modifyThree () {
+      Three.Object3D.prototype.addUpdatable = function (child) {
+        if(!this.animatableChildren){
+          this.animatableChildren = [];
+        }
+
+        this.animatableChildren.push(child);
+        this.add(child);
+      };
+
+      Three.Object3D.prototype.updateAll = function (delta) {
+        _.each(this.animatableChildren, function (child) {
+          child.updateAll(delta);
+        });
+
+        this.update(delta);
+      };
+
+      Three.Object3D.prototype.update = function (delta) {
+      };
+    }
+
+
+
+    function addAnimatableChild (child) {
+
     }
 });

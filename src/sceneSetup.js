@@ -13,8 +13,8 @@ define([
     };
 
     function setup($container){
-      var WIDTH = 400,
-        HEIGHT = 300;
+      var WIDTH = 800,
+        HEIGHT = 600;
       
       var VIEW_ANGLE = 45,
         ASPECT = WIDTH/HEIGHT,
@@ -24,9 +24,10 @@ define([
       var renderer = new Three.WebGLRenderer();
       var camera = new Three.PerspectiveCamera(VIEW_ANGLE, ASPECT, NEAR, FAR);
 
+
       var scene = new Three.Scene();
-      scene.add(camera);
-      
+      scene.add(camera, false);
+
       camera.position.y = 1;
       camera.position.z = 300;
 
@@ -46,7 +47,7 @@ define([
       light.position.y = 50;
       light.position.z = 130;
 
-      this.scene.add(light);
+      this.scene.add(light, false);
     }
 
     return SceneSetup;
