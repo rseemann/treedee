@@ -75,18 +75,22 @@ define([
 
       switch(this.keydown){
         case 37:
+        case 65:
         change.x = sin;
         change.z = -cos;
           break;
         case 38:
+        case 87:
         change.x = cos;
         change.z = sin;
           break;
         case 39:
+        case 68:
         change.x = -sin;
         change.z = cos;
           break;
         case 40:
+        case 83:
         change.x = -cos;
         change.z = -sin;
           break;
@@ -111,8 +115,6 @@ define([
       this.target.x = this.camera.position.x + Math.sin(phi) * Math.cos(theta);
       this.target.y = this.camera.position.y + Math.cos(phi);
       this.target.z = this.camera.position.z + Math.sin(phi) * Math.sin(theta);
-
-      console.log(Math.cos(theta), Math.sin(theta));
 
       this.camera.lookAt(this.target);
 

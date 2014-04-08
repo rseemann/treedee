@@ -28,7 +28,7 @@ define([
       mesh.position.z = z;
 
       mesh.update = function (delta) {
-        //this.rotation.y += velocity * delta;
+        this.rotation.y += velocity * delta;
       };
 
 

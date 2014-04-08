@@ -1,15 +1,15 @@
 define([
   'Three',
   'cameraController',
-  'trunkMesh'
-  ], function (Three, CameraController, TrunkMesh) {
+  'treeGenerator'
+  ], function (Three, CameraController, TreeGenerator) {
     var planeSize = Three.Vector2(100, 100);
 
     var StageStarter = function (scene, camera) {
       var cameraController = new CameraController(camera);
 
       addGround(scene);
-      addTrunks(scene);
+      addTree(scene, Three.Vector3());
 
       this.update = function (delta) {
         cameraController.update(delta);
@@ -17,23 +17,31 @@ define([
     };
 
     function addGround (scene) {
-      var texture = Three.ImageUtils.loadTexture('assets/grass_difuse.jpg');
-      texture.wrapS = THREE.RepeatWrapping;
-      texture.wrapT = THREE.RepeatWrapping;
-      texture.repeat.set(10,10);
+      var texture = Three.ImageUtils.loadTexture('assets/grass_difuse_512.jpg');
+      texture.wrapS = texture.wrapT = THREE.RepeatWrapping;
+      texture.repeat.set(100,100);
+
+      var normalTexture = Three.ImageUtils.loadTexture('assets/grass_normal_512.jpg');
+      normalTexture.wrapS = normalTexture.wrapT = THREE.RepeatWrapping;
+      normalTexture.repeat.set(100,100);
 
       var material = new Three.MeshPhongMaterial({
         map:texture,
-        normalMap: Three.ImageUtils.loadTexture('assets/grass_normal.jpg'),
+        normalMap: normalTexture,
         side: THREE.DoubleSide
       });
 
-      var geometry = new Three.PlaneGeometry(1000, 1000);
+      var geometry = new Three.PlaneGeometry(500, 500);
 
       var mesh = new Three.Mesh(geometry, material);
       mesh.rotation.x = Math.PI/2;
 
       scene.add(mesh);
+    }
+
+    function addTree (scene, position) {
+      var tree = new TreeGenerator();
+      scene.addUpdatable(tree.tree);
     }
 
     function addTrunks (scene) {
