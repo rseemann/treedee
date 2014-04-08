@@ -1,8 +1,8 @@
 define([
   'Three'
   ], function (Three) {
-    var radius = 10,
-      height = 50,
+    var radius = 2,
+      height = 10,
       radiusSegments = 32,
       heightSegments = 1;
 

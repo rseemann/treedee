@@ -28,8 +28,7 @@ define([
       var scene = new Three.Scene();
       scene.add(camera, false);
 
-      camera.position.y = 1;
-      camera.position.z = 300;
+      camera.position.y = 10;
 
       renderer.setSize(WIDTH, HEIGHT);
 
@@ -43,9 +42,11 @@ define([
     function addLight() {
       var light = new THREE.PointLight(0xffffff);
 
-      light.position.x = 10;
-      light.position.y = 50;
-      light.position.z = 130;
+      light.position.x = 0;
+      light.position.y = 300;
+      light.position.z = 300;
+
+      light.rotation.x = Math.atan(light.position.y/light.position.z);
 
       this.scene.add(light, false);
     }
