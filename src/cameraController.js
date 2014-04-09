@@ -28,8 +28,8 @@ define([
       document.addEventListener('mousemove', _.bind(onMouseMove, this), false);
       document.addEventListener('mousedown', _.bind(onMouseDown, this), false);
       document.addEventListener('mouseup', _.bind(onMouseUp, this), false);
-      document.addEventListener('keydown', _.bind(onKeyDown, this), true);
-      document.addEventListener('keyup', _.bind(onKeyUp, this), true);
+      document.addEventListener('keydown', _.bind(onKeyDown, this), false);
+      document.addEventListener('keyup', _.bind(onKeyUp, this), false);
 
       this.update = function (delta){
         updateCamera.call(this, delta);
@@ -40,8 +40,10 @@ define([
       this.keydown = event.keyCode;
     }
 
-    function onKeyUp () {
-      this.keydown = null;
+    function onKeyUp (event) {
+      if(event.keyCode == this.keydown){
+        this.keydown = null;
+      }
     }
 
     function onMouseMove (event) {

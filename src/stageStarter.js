@@ -41,7 +41,7 @@ define([
 
     function addTree (scene, position) {
       var tree = new TreeGenerator();
-      scene.addUpdatable(tree.tree);
+      scene.addUpdatable(tree);
     }
 
     function addTrunks (scene) {

@@ -1,0 +1,20 @@
+#container {
+  background: black;
+  height: 100%;
+  position: absolute;
+  width: 100%;
+}
+
+#pause-notification {
+  background-color: red;
+  color: white;
+  font-size: 40px;
+  position:absolute;
+  text-align: center;
+  top: 50%;
+  width: 100%;
+}
+
+.hidden {
+  display: none;
+}
