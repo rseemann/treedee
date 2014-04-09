@@ -6,7 +6,10 @@ define([
     var MAX_Y_ANGLE = 85,
         MIN_Y_ANGLE = -85;
 
-
+    var LEFT_MOVE = 'LEFT',
+        UP_MOVE   = 'UP',
+        RIGHT_MOVE= 'RIGHT',
+        DOWN_MOVE = 'DOWN';
 
     var CameraController = function(camera){
       this.mouse = new Three.Vector2();
@@ -37,7 +40,31 @@ define([
     };
 
     function onKeyDown (event) {
+      var moveDirection;
+
+      switch(event.keyCode){
+        case 37:
+        case 65:
+        moveDirection = LEFT_MOVE;
+          break;
+        case 38:
+        case 87:
+        moveDirection = UP_MOVE;
+          break;
+        case 39:
+        case 68:
+        moveDirection = RIGHT_MOVE;
+          break;
+        case 40:
+        case 83:
+        moveDirection = DOWN_MOVE;
+          break;
+        default:
+          return;
+      }
+
       this.keydown = event.keyCode;
+      this.moveDirection = moveDirection;
     }
 
     function onKeyUp (event) {
@@ -75,24 +102,20 @@ define([
       var sin = Math.sin(this.thetaAngle());
       var cos = Math.cos(this.thetaAngle());
 
-      switch(this.keydown){
-        case 37:
-        case 65:
+      switch(this.moveDirection){
+        case LEFT_MOVE:
         change.x = sin;
         change.z = -cos;
           break;
-        case 38:
-        case 87:
+        case UP_MOVE:
         change.x = cos;
         change.z = sin;
           break;
-        case 39:
-        case 68:
+        case RIGHT_MOVE:
         change.x = -sin;
         change.z = cos;
           break;
-        case 40:
-        case 83:
+        case DOWN_MOVE:
         change.x = -cos;
         change.z = -sin;
           break;
