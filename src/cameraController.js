@@ -7,8 +7,10 @@ define([
         MIN_Y_ANGLE = -85;
 
     var LEFT_MOVE = 'LEFT',
-        UP_MOVE   = 'UP',
-        RIGHT_MOVE= 'RIGHT',
+        FORWARD_MOVE = 'FORWARD',
+        RIGHT_MOVE = 'RIGHT',
+        BACKWARDS_MOVE = 'BACK',
+        UP_MOVE = 'UP',
         DOWN_MOVE = 'DOWN';
 
     var CameraController = function(camera){
@@ -45,19 +47,25 @@ define([
       switch(event.keyCode){
         case 37:
         case 65:
-        moveDirection = LEFT_MOVE;
+          moveDirection = LEFT_MOVE;
           break;
         case 38:
         case 87:
-        moveDirection = UP_MOVE;
+          moveDirection = FORWARD_MOVE;
           break;
-        case 39:
+        case  39:
         case 68:
-        moveDirection = RIGHT_MOVE;
+          moveDirection = RIGHT_MOVE;
           break;
         case 40:
         case 83:
-        moveDirection = DOWN_MOVE;
+          moveDirection = BACKWARDS_MOVE;
+          break;
+        case 90:
+          moveDirection = UP_MOVE;
+          break;
+        case 88:
+          moveDirection = DOWN_MOVE;
           break;
         default:
           return;
@@ -104,20 +112,26 @@ define([
 
       switch(this.moveDirection){
         case LEFT_MOVE:
-        change.x = sin;
-        change.z = -cos;
+          change.x = sin;
+          change.z = -cos;
           break;
-        case UP_MOVE:
-        change.x = cos;
-        change.z = sin;
+        case FORWARD_MOVE:
+          change.x = cos;
+          change.z = sin;
           break;
         case RIGHT_MOVE:
-        change.x = -sin;
-        change.z = cos;
+          change.x = -sin;
+          change.z = cos;
+          break;
+        case BACKWARDS_MOVE:
+          change.x = -cos;
+          change.z = -sin;
+          break;
+        case UP_MOVE:
+          change.y = 1;
           break;
         case DOWN_MOVE:
-        change.x = -cos;
-        change.z = -sin;
+          change.y = -1;
           break;
         default:
           return;
