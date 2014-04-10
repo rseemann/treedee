@@ -2,7 +2,7 @@ define([
   'Three',
   'underscore'
   ], function (Three, _) {
-    var ROTATION_SPEED = new Three.Vector2(45, 20);
+    var ROTATION_SPEED = new Three.Vector2(90, 45);
     var MAX_Y_ANGLE = 85,
         MIN_Y_ANGLE = -85;
 
@@ -162,8 +162,8 @@ define([
 
     function vectorForMouseEvent (event){
       var vector = new Three.Vector2();
-      vector.x = event.clientX/window.innerWidth * 2 - 1;
-      vector.y = -(event.clientY/window.innerHeight * 2 - 1);
+      vector.x = -event.clientX/window.innerWidth * 2 - 1;
+      vector.y = (event.clientY/window.innerHeight * 2 - 1);
 
       return vector;
     }

@@ -41,7 +41,7 @@ define([
     }
 
     function addLight() {
-      var light = new THREE.PointLight(0xffffff);
+      var light = new THREE.AmbientLight(0xffffff);
 
       light.position.x = 0;
       light.position.y = 300;

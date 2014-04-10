@@ -1,27 +1,34 @@
 define([
   'Three'
   ], function (Three) {
-    var radius = 2,
+    var radius = 0.1,
       height = 10,
       radiusSegments = 32,
       heightSegments = 1;
 
-    var TrunkSegment = function (position) {
-      initialize.call(this, position);
+    var TrunkSegment = function (position, animatable) {
+      Three.Object3D.call(this);
+      initialize.call(this, position, animatable);
 
-      this.top = function () {
+      this.germinationPoint = function () {
+        var dist = height;
         var top = this.position.clone();
-        top.y += height/2;
-
+        top.y += dist;
         return top;
+      };
+
+      this.update = function (delta) {
+
       };
     };
 
-    TrunkSegment.prototype = new Three.Mesh();
+    TrunkSegment.prototype = new Three.Object3D();
     TrunkSegment.prototype.constructor = TrunkSegment;
 
-    function initialize (position) {
+    function initialize (position, animatable) {
       position = position || new Three.Vector3();
+
+      this.animatable = animatable;
 
       var material = new Three.MeshPhongMaterial({
         map: Three.ImageUtils.loadTexture('assets/Bark_0007_diffuse_512.jpg'),
@@ -31,13 +38,18 @@ define([
       });
 
       var geometry = new Three.CylinderGeometry(radius, radius, height, radiusSegments, heightSegments);
+      var mesh = new Three.Mesh(geometry, material);
+      mesh.position.y = +height/2;
+      // mesh.position = position.clone().negate();
 
-      Three.Mesh.call(this, geometry, material);
+      this.addUpdatable(mesh);
 
-      position.y += height/2;
+      if(animatable){
+        this.rotateX(Math.PI/3);
+      }
+
       this.position = position;
-
-      this.geometry = geometry;
+      this.mesh = mesh;
     }
 
     return TrunkSegment;
