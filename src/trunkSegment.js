@@ -1,33 +1,44 @@
 define([
   'Three'
   ], function (Three) {
-    var radius = 0.1,
-      height = 10,
+    var radius = 2,
+      initialHeight = 2,
       radiusSegments = 32,
       heightSegments = 1;
 
-    var TrunkSegment = function (position, animatable) {
+    var TrunkSegment = function (parent, animatable) {
       Three.Object3D.call(this);
-      initialize.call(this, position, animatable);
+
+      this.position = parent ? parent.germinationPoint() : new Three.Vector3();
+      this.trunkParent = parent;
+      setHeight.call(this, initialHeight);
+      initialize.call(this, parent, animatable);
 
       this.germinationPoint = function () {
-        var dist = height;
+        var up = this.localToWorld(this.up.clone().setLength(getHeight.call(this)));
         var top = this.position.clone();
-        top.y += dist;
-        return top;
+        top.add(up);
+
+        return up;
       };
 
       this.update = function (delta) {
+        if(!animatable){
+          return;
+        }
 
+        this.applyMatrix(new Three.Matrix4().makeRotationFromEuler(new Three.Euler(randomAngle(), randomAngle(), randomAngle())));
+
+        if(this.trunkParent){
+          this.position = this.trunkParent.germinationPoint();
+        }
       };
     };
 
     TrunkSegment.prototype = new Three.Object3D();
     TrunkSegment.prototype.constructor = TrunkSegment;
 
-    function initialize (position, animatable) {
-      position = position || new Three.Vector3();
-
+    function initialize (animatable) {
       this.animatable = animatable;
 
       var material = new Three.MeshPhongMaterial({
@@ -37,19 +48,27 @@ define([
         shininess: 50
       });
 
-      var geometry = new Three.CylinderGeometry(radius, radius, height, radiusSegments, heightSegments);
+      var geometry = new Three.CylinderGeometry(radius, radius, initialHeight, radiusSegments, heightSegments);
       var mesh = new Three.Mesh(geometry, material);
-      mesh.position.y = +height/2;
-      // mesh.position = position.clone().negate();
+      mesh.position.y = getHeight.call(this)/2;
 
+      this.mesh = mesh;
       this.addUpdatable(mesh);
 
-      if(animatable){
-        this.rotateX(Math.PI/3);
-      }
+    }
 
-      this.position = position;
-      this.mesh = mesh;
+    function randomAngle () {
+      var MAX_ANGLE = Math.PI/400;
+      //return MAX_ANGLE;
+      return Math.random() * MAX_ANGLE * 2 - MAX_ANGLE;
+    }
+
+    function getHeight () {
+      return this.height;
+    }
+
+    function setHeight (height) {
+      this.height = height;
     }
 
     return TrunkSegment;
